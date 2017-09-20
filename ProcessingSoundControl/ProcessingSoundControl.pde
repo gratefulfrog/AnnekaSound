@@ -71,7 +71,7 @@ void draw() {
     showIncoming();
     messageArrived= false;
   }
-  showOsc();
+  //showOsc();
 }
 
 void serialEvent(Serial myPort) {

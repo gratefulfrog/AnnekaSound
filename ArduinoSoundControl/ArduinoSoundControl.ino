@@ -68,13 +68,25 @@ void loop() {
   // wirte all the name,value pairs, separated by commas
   Serial.print("v0,");
   Serial.print(v0);
-  Serial.print(",v1,");
+
+  Serial.print(",");
+  
+  Serial.print("v1,");
   Serial.print(v1);
-  Serial.print(",v2,");
+  
+  Serial.print(",");
+  
+  Serial.print("v2,");
   Serial.print(v2);
-  Serial.print(",v3,");
+  
+  Serial.print(",");
+  
+  Serial.print("v3,");
   Serial.print(v3);
-  Serial.print(",v4,");
+  
+  Serial.print(",");
+  
+  Serial.print("v4,");
   Serial.print(v4);
 
   // write the end of message
