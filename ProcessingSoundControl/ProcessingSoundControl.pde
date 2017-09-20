@@ -32,7 +32,7 @@ void showIncoming(){
   String resVec[]  = incoming.split(",");
   for (int i = 0; i< resVec.length;i+=2){
     text(resVec[i],20,20+20*i);
-    text(resVec[i+1],60,20+20*i); 
+    text(resVec[i+1],20 + resVec[i].length()*10, 20+20*i); 
     OscMessage myMessage = new OscMessage("/" + resVec[i]);
     float number = Float.parseFloat(resVec[i+1]);
     myMessage.add(number); /* add a number to the osc message */
