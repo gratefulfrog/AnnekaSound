@@ -29,37 +29,28 @@ final char startChar = '*',
            endChar   = '#',
            contactCharacter = '|';
 
-void showIncoming(){ 
+void showIncoming(){
   String resVec[]  = incoming.split(",");
-  try{
-    for (int i = 0; i< resVec.length;i+=2){
-      text(resVec[i],20,20+20*i);
-      text(resVec[i+1],20 + resVec[i].length()*10, 20+20*i); 
-      OscMessage myMessage = new OscMessage("/" + resVec[i]);
-      float number = Float.parseFloat(resVec[i+1]);
-      myMessage.add(number); /* add a number to the osc message */
+  for (int i = 0; i< resVec.length;i+=2){
+    text(resVec[i],20,20+20*i);
+    text(resVec[i+1],20 + resVec[i].length()*10, 20+20*i); 
+    OscMessage myMessage = new OscMessage("/" + resVec[i]);
+    float number = Float.parseFloat(resVec[i+1]);
+    myMessage.add(number); /* add a number to the osc message */
 
-      /* send the message */
-      oscP5.send(myMessage, myRemoteLocation); 
-    }
+    /* send the message */
+    oscP5.send(myMessage, myRemoteLocation); 
   }
-  catch(Exception ex){
-    println("Exception Message: " + ex);
-    printArray(resVec);
-    exit();
-  }
-  
 }
 
 void showOsc(){
-  text(IncomingOSCMessage, 300,200);
+  text(IncomingOSCMessage, 200,20);
   IncomingOSCMessage ="";
 }
 void setup() {
-  size(1000, 800); 
+  size(1000, 800);  // Stage size
   fill(255);
   background(0);
-  //printArray(Serial.list());
   myPort = new Serial(this, portName, 115200);
   
   /* start oscP5, listening for incoming messages */
@@ -81,30 +72,29 @@ void draw() {
     showIncoming();
     messageArrived= false;
   }
-  showOsc();
+  //showOsc();
 }
 
 void serialEvent(Serial myPort) {
   // read a byte from the serial port:
   char inChar = myPort.readChar();
-  // if this is the first char received, and it's an contactCharacter,
+  println(inChar);
+  // if this is the first char received, and it's a contactCharacter,
   // clear the serial buffer and note that you've
   // had first contact from the microcontroller.
   // Otherwise, process the incoming char
   if (!firstContact) {
     if (inChar == contactCharacter) {
-      println("First contact!");
       myPort.clear();          // clear the serial port buffer
       firstContact = true;     // you've had first contact from the microcontroller
-      myPort.write(str(contactCharacter));       // ask for more
+      myPort.write(contactCharacter);       // ask for more
       println("started!");
     }
   }
-  else {
+  else {  
     switch (inChar){
       case contactCharacter:
         println("got extra contactCharacter");
-        firstContact = false;
         break;
       case startChar:
         incoming= "";
