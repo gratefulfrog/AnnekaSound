@@ -38,7 +38,7 @@ const char contactCharacter = '|'; //<-- PROBLEM FIXED !
 void establishContact() {
   while (Serial.available() <= 0) {
     Serial.print(contactCharacter);   // send a char and wait for a response...
-    delay(300);
+    delay(loopPauseTime);
   }
   Serial.read();
 }
